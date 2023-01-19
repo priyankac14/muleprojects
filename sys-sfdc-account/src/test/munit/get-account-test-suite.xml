@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-account-test-suite.xml" >
+		<munit:parameterizations file="getaccount\get-account.yaml" />
+	</munit:config>
+	<munit:test name="get-account-test-suite" doc:id="d0094826-5a8d-485c-99e7-d182f0e7737b" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="3b3e5e0b-02b7-4737-b69e-2516a8ad22ac" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="803f0587-7aa4-4b78-b235-e9553c8aff82" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- readUrl("classpath://getaccount/get-account-response.json")]' mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:error typeId="${errorType}" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Event" doc:id="e38bfdb9-f2e7-4baf-b326-e8529b3e829a" >
+				<munit:attributes value='#[output application/json --- readUrl("classpath://getaccount/get-accounts-attributes.json")]' encoding="UTF-8" mediaType="application/json" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="get:\accounts:account-api-config" doc:id="39270cf2-f72e-4772-a93e-6f3af2a08bde" name="get:\accounts:account-api-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call" doc:id="ade45521-a884-4eeb-90ca-b3bdfd46c9e2" processor="salesforce:query" times="${sfdcQueryCalls}">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="803f0587-7aa4-4b78-b235-e9553c8aff82" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

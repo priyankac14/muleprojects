@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<error-handler name="global-error-handler" doc:id="8e9147ce-9c0e-4876-9996-60e430886420" >
+		<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="98040675-61c4-4d5e-88b1-814bf924538b" >
+			<flow-ref doc:name="common-Failure-ressponse" doc:id="5e33ddbb-0380-4d02-998c-9b0505f56b51" name="common-Failure-ressponse"/>
+			<email:send doc:name="Send" doc:id="24fe5902-2edf-45e8-b5dc-8a61e5e6398c" config-ref="Email_SMTP" fromAddress="${email.fromAddress}" subject="${email.subject}">
+				<email:to-addresses >
+					<email:to-address value="${email.fromAddress}" />
+				</email:to-addresses>
+				<email:body contentType="text/html">
+				</email:body>
+			</email:send>
+		</on-error-continue>
+	</error-handler>
+</mule>
