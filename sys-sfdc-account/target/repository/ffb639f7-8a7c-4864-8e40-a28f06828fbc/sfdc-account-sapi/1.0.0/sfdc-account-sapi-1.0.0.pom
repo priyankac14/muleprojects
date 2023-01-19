@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ffb639f7-8a7c-4864-8e40-a28f06828fbc</groupId>
+  <artifactId>sfdc-account-sapi</artifactId>
+  <version>1.0.0</version>
+  <name>SFDC-ACCOUNT-SAPI</name>
+  <properties>
+    <classifier>raml</classifier>
+    <main>account-api.raml</main>
+    <status>published</status>
+    <originalFormatVersion>1.0</originalFormatVersion>
+    <apiVersion>v1</apiVersion>
+    <projectId>c4e0500c-64c0-43cc-a9d6-6ee84d271fc7</projectId>
+    <branchId>master</branchId>
+    <commitId>0dfb832f4d91f95bb1797131a9e4b09056ab9ded</commitId>
+    <keywords/>
+    <type>rest-api</type>
+    <mainFile>account-api.raml</mainFile>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>ffb639f7-8a7c-4864-8e40-a28f06828fbc</groupId>
+      <version>1.0.0</version>
+      <type>zip</type>
+      <classifier>raml-fragment</classifier>
+      <artifactId>common-fragment</artifactId>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>anypoint-exchange</id>
+      <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+    </repository>
+  </repositories>
+</project>

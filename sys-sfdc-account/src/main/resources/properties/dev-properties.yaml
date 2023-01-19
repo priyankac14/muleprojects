@@ -1,0 +1,13 @@
+autodiscovery:
+    id: "18254974"
+  
+sfdc:
+  username: "priyanka@tech.com"
+  loginUrl: "https://login.salesforce.com/services/Soap/u/55.0"  
+  query: 
+    get-account: "SELECT AccountNumber,BillingState,Email__c,Id,OwnerId,Active__c,ShippingCity,ShippingState,ShippingCountry,ShippingPostalCode,ExternalAccountId__c,LastModifiedDate,Name,Phone FROM Account where lastModifiedDate >"
+    get-user: "SELECT Email,Id,Name,Phone,Username FROM user where userName"  
+   
+retry:
+    count: "3"
+    interval: "1000" 
