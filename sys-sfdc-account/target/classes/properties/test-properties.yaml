@@ -1,0 +1,6 @@
+autodiscovery:
+    id: "18254974"
+  
+sfdc:
+  username: "priyanka@tech.com"
+  loginUrl: "https://login.salesforce.com/services/Soap/u/55.0" 

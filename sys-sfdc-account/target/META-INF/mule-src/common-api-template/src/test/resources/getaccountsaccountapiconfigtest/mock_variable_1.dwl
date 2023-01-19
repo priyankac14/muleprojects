@@ -1,0 +1,1 @@
+"SELECT AccountNumber,BillingState,Email__c,Id,OwnerId,Active__c,ShippingCity,ShippingState,ShippingCountry,ShippingPostalCode,ExternalAccountId__c,LastModifiedDate,Name,Phone FROM Account where lastModifiedDate > 2022-10-18T17:40:45.000Z"

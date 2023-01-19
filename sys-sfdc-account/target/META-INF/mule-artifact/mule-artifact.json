@@ -1,0 +1,47 @@
+{
+  "configs": [
+    "implementation/sfdc-getAccounts.xml",
+    "global.xml",
+    "common-flows.xml",
+    "implementation/sfdc-user.xml",
+    "error-handling.xml",
+    "account-api.xml",
+    "implementation/sfdc-patch.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "ffb639f7-8a7c-4864-8e40-a28f06828fbc1b:common-api-template:1.0.0",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "account-api.xml",
+        "application-types.xml",
+        "common-flows.xml",
+        "dwl/commonfunctions.dwl",
+        "dwl/successorerrormsg.dwl",
+        "dwl/xformtosfdc.dwl",
+        "error-handling.xml",
+        "global.xml",
+        "implementation/sfdc-getAccounts.xml",
+        "implementation/sfdc-patch.xml",
+        "implementation/sfdc-user.xml",
+        "log4j2.xml",
+        "properties/common-env-properties.yaml",
+        "properties/dev-properties.yaml",
+        "properties/dev-secure-properties.yaml",
+        "properties/prod-properties.yaml",
+        "properties/prod-secure-properties.yaml",
+        "properties/test-properties.yaml",
+        "properties/test-secure-properties.yaml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
