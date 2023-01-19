@@ -1,0 +1,1 @@
+"SELECT Email,Id,Name,Phone,Username FROM user where userName = 'priyanka@tech.com'"

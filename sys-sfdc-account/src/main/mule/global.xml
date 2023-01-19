@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:email="http://www.mulesoft.org/schema/mule/email"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd
+	 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="6150d798-ed0c-4a73-a6a7-b391148f674d" file="properties/${mule.env}-properties.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="d24e9f11-3146-453c-ad2b-c0442e6316bb" file="properties/common-env-properties.yaml" />
+	<configuration doc:name="Configuration" doc:id="7507d457-1c46-492b-835d-65b53e790fed" defaultErrorHandler-ref="global-error-handler" />
+	<email:smtp-config name="Email_SMTP" doc:name="Email SMTP" doc:id="7fd22c75-e85b-41d5-904a-02aa1501a81f" >
+		<email:smtp-connection host="${email.host}" port="${email.port}" user="${email.userName}" password="${email.password}" >
+			<email:properties >
+				<email:property key="mail.smtp.starttls.enable" value="true" />
+			</email:properties>
+		</email:smtp-connection>
+	</email:smtp-config>
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="865eeda9-9aa2-4442-8ac0-0a35b26fef22" >
+		<salesforce:basic-connection username="${sfdc.username}" password="${secure::sfdc.password}" securityToken="${secure::sfdc.securityToken}" url="${sfdc.loginUrl}">
+            <!-- <salesforce:proxy-configuration /> -->
+        </salesforce:basic-connection>
+	</salesforce:sfdc-config>
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="dae32f95-e86b-4939-8d55-060d0b43f50a" file="properties/${mule.env}-secure-properties.yaml" key="${mule.encryption.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<api-gateway:autodiscovery apiId="${autodiscovery.id}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="f3fd0614-6271-40a6-9eb4-ea09466f5d09" flowRef="account-api-main" />
+</mule>

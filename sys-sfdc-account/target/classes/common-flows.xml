@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<sub-flow name="common-success-response" doc:id="687f0e06-6fcd-44d5-a9b9-3e7a901eaf2a" >
+		<ee:transform doc:name="Transform Message" doc:id="582a8f3f-1149-4b45-b5ca-405ff35af023" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+trackingid: correlationid,
+timestamp: now() >> "UTC",
+apiName: Mule::p('api.name'),
+apiVersion: Mule::p('api.version'),
+data: payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="common-Failure-ressponse" doc:id="ab066293-46aa-4a3c-a170-cbf6ba7d8b11" >
+		<ee:transform doc:name="Transform Message" doc:id="32b38254-45b0-4116-9f13-e1e18da25558" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+trackingid: correlationid,
+timestamp: now() >> "UTC",
+apiName: Mule::p('api.name'),
+apiVersion: Mule::p('api.version'),
+errorCode: "ITSERVICELAYER_ERROR",
+error: error,
+data: payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="sfdc-query-SubFlow" doc:id="928088c8-b9bd-42fc-98c3-7f78d6a99791" >
+		<until-successful maxRetries="${retry.count}" doc:name="retry" doc:id="f6b389f3-c4f5-4782-88b9-231f59c21ae0" millisBetweenRetries="${retry.interval}">
+			<try doc:name="Try" doc:id="efc86269-b865-47da-9b4a-c75ce847fc87" >
+				<salesforce:query doc:id="803f0587-7aa4-4b78-b235-e9553c8aff82" config-ref="Salesforce_Config" doc:name="Query" >
+					<salesforce:salesforce-query ><![CDATA[#[vars.queryObject]]]></salesforce:salesforce-query>
+				</salesforce:query>
+				<logger level="INFO" doc:name="Logger" doc:id="4a581921-1fe0-4ac0-977f-b97354ab1c9d" message="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]" category="sfdcqueryresponse" />
+				<ee:transform doc:name="Transform Message" doc:id="3c1c18d2-69c6-414e-ab9f-9ead3f61d105" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<error-handler >
+					<on-error-propagate enableNotifications="true" logException="true" doc:name="Error Propagate" doc:id="57dd7967-1667-4971-be23-d8f71b1e74ee" type="SALESFORCE:CONNECTIVITY, SALESFORCE:TIMEOUT" >
+						<logger level="INFO" doc:name="Logger" doc:id="6131130b-3e0d-4e36-9a7c-e9ae30963e0c" message="#[error]" />
+					</on-error-propagate>
+					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="0f2c996e-ba1f-4e0c-8598-91771c02afcd" >
+						<logger level="INFO" doc:name="Logger" doc:id="a1703b9b-9ba7-45de-ba96-4803d4ee96e6" message="#[error]" />
+					</on-error-continue>
+				</error-handler>
+			</try>
+		</until-successful>
+	</sub-flow>
+</mule>

@@ -1,0 +1,36 @@
+[
+    {
+        "LastModifiedDate": "2022-10-27T19:57:18.000Z",
+        "ExternalAccountId__c": "netsuite123",
+        "type": "Account",
+        "AccountNumber": null,
+        "Name": "John",
+        "OwnerId": "0054x000005qMjQAAU",
+        "Phone": "9849822459",
+        "ShippingPostalCode": "60060",
+        "ShippingCountry": "us",
+        "ShippingCity": "Chicago",
+        "ShippingState": "Illinois",
+        "Id": "0014x00001HK9jFAAT",
+        "BillingState": null,
+        "Email__c": "abc@gmail.com",
+        "Active__c": "true"
+    },
+    {
+        "LastModifiedDate": "2022-10-27T19:57:29.000Z",
+        "ExternalAccountId__c": null,
+        "type": "Account",
+        "AccountNumber": "CC978213",
+        "Name": "GenePoint",
+        "OwnerId": "0054x000005qMjQAAU",
+        "Phone": "8989898988",
+        "ShippingPostalCode": "02062",
+        "ShippingCountry": "US",
+        "ShippingCity": "norwood",
+        "ShippingState": "Massachusetts",
+        "Id": "0014x00001DBWGCAA5",
+        "BillingState": "CA",
+        "Email__c": null,
+        "Active__c": "Yes"
+    }
+]
